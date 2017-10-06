@@ -13,15 +13,7 @@
       </div>
       <div class="right">
         <!--<self-title txt="用户登录"></self-title>-->
-        <form>
-          <input type="text" class="username" placeholder="用户名">
-          <input type="password" class="pwd" placeholder="密码">
-        </form>
-        <div class="check-box">
-          <label><input type="checkbox">自动登录</label>
-          <label><input type="checkbox">显示密码</label>
-          <label><input type="checkbox">隐藏密码</label>
-        </div>
+        <login-form></login-form>
       </div>
     </div>
   </div>
@@ -30,8 +22,9 @@
 <script type="text/ecmascript-6">
   import selfHead from '../components/common/selfHead.vue';
   import selfNav from '../components/common/selfNav.vue';
+  import loginForm from '../components/login/loginForm.vue';
   export default {
-    components: {selfHead, selfNav}
+    components: {selfHead, selfNav, loginForm}
   };
 </script>
 

@@ -1,6 +1,9 @@
 <template>
   <div class="selfNav">
-    <div class="txt-line"><img src="../../assets/img/nav-txt.png"></div>
+    <img src="../../assets/img/nav-bg.png" alt="" class="bg">
+    <div class="tel-line">
+      <i class="line"></i>招商热线：0000000
+    </div>
     <div class="router-line">
       <router-link class="routers" v-for="(item, index) in routerList"
                    :to="item.to" :key="index">
@@ -15,11 +18,11 @@
     data () {
       return {
         routerList: [
-          {to: '/home/home', info: '首页'},
-          {to: '/home/mission', info: '任务发布'},
-          {to: '/home/seller', info: '商家'},
-          {to: '/home/brief', info: '简介'},
-          {to: '/home/info', info: '资讯'}
+          {to: '/', info: '首页'},
+          {to: '/mission', info: '任务发布'},
+          {to: '/seller', info: '商家'},
+          {to: '/brief', info: '简介'},
+          {to: '/info', info: '资讯'}
         ]
       };
     }
@@ -33,16 +36,29 @@
     position: relative;
     width: 100%;
     height: 274px;
-    background-image: url("../../assets/img/nav-bg.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position-y: 20px;
+    overflow: hidden;
   }
 
-  .txt-line {
+  .bg {
+    width: 1920px;
+    height: 274px;
+  }
+
+  .tel-line {
     position: absolute;
-    top: 80px;
-    left: 500px;
+    top: 75px;
+    left: 1095px;
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    .line {
+      display: inline-block;
+      width: 2px;
+      height: 22px;
+      margin-right: 3px;
+      background-color: @cLight;
+    }
   }
 
   .router-line {

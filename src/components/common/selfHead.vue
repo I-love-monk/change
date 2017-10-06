@@ -10,9 +10,6 @@
         <i class="line"></i>
         <router-link to="">客户服务</router-link>
       </div>
-      <div class="tel-line">
-        <i class="line"></i>招商热线：0000000
-      </div>
     </div>
   </div>
 </template>
@@ -48,6 +45,7 @@
     border-top: none;
     border-radius: 0 0 10px 10px;
     box-shadow: 0.5px 0.9px 1px 0px #035C6B;
+    background-color: @cWhite;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -63,19 +61,4 @@
       background-color: @cLight;
     }
   }
-
-  .tel-line {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    margin-top: 37px;
-    .line {
-      display: inline-block;
-      width: 2px;
-      height: 22px;
-      margin-right: 3px;
-      background-color: @cLight;
-    }
-  }
-
 </style>
