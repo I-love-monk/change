@@ -5,8 +5,9 @@ import App from './App';
 import router from './router';
 
 import './assets/css/reset.css';  // 重置样式
-import ElementUI from 'element-ui'; // 引入ui组件
-import 'element-ui/lib/theme-default/index.css';
+import ElementUI from 'element-ui'; // ui组件
+import 'element-ui/lib/theme-default/index.css';  // ui组件样式
+import './utils/vee-validate';  // 引入表单验证
 
 Vue.use(ElementUI);
 

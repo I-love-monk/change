@@ -1,9 +1,9 @@
 <template>
   <!--登录页面用的-->
-  <div class="selfTitle">
-    <div class="line"></div>
-    <div class="txt"></div>
-    <div class="line"></div>
+  <div class="smallTitle">
+    <i class="bar"></i>
+    <div class="txt">{{txt}}</div>
+    <i class="bar"></i>
   </div>
 </template>
 
@@ -16,15 +16,21 @@
 </script>
 
 <style scoped rel="stylesheet/less" type="text/less" lang="less">
-  .selfTitle {
+  @import '../../assets/css/common.less';
+
+  .smallTitle {
     display: flex;
     align-items: center;
-    .line {
+    .bar {
+      display: inline-block;
       flex: 1;
       height: 1px;
+      background-color: @cBorder;
     }
     .txt {
-
+      margin: 0 15px;
+      font-size: 24px;
+      color: @cWhite;
     }
   }
 

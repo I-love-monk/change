@@ -19,8 +19,31 @@
           {preTxt: '手机号码', placeTxt: '您的账户名和登录名'},
           {preTxt: '验证码', placeTxt: '您的账户名和登录名'},
           {preTxt: '手机验证码', placeTxt: '您的账户名和登录名', btnTxt: '获取验证码'}
-        ]
+        ],
+        formData: {
+          username: null,
+          pwd: null,
+          pwd2: null,
+          tel: null,
+          imgCode: null,  // 图形验证码
+          msgCode: null,  // 短信验证码
+        }
       };
+    },
+    methods:{
+      ajaxMsg () {
+        // 获取短信验证码
+        this.$http.get('http://localhost:3000/test').then(res => {
+          // 成功回调
+          console.log(res);
+        }, err => {
+          // 失败回调
+          console.log(err);
+        });
+      },
+      ajaxRegister () {
+        // 注册
+      }
     }
   };
 </script>
