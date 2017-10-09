@@ -1,19 +1,28 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-// import Hello from '@/components/Hello';
 import Home from '../views/home.vue';
 import Login from '../views/login.vue';
+import Register from '../views/register.vue';
+import Brief from '../views/brief.vue';
 
 Vue.use(Router);
 let router = new Router({
   routes: [
     {
-      path: '/',
+      path: '/home',
       component: Home
     },
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/register',
+      component: Register
+    },
+    {
+      path: '/brief',
+      component: Brief
     }
   ]
 });

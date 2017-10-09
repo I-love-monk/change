@@ -3,12 +3,15 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
+import VueResource from 'vue-resource';
 
 import './assets/css/reset.css';  // 重置样式
 import ElementUI from 'element-ui'; // 引入ui组件
-import 'element-ui/lib/theme-default/index.css';
+import 'element-ui/lib/theme-default/index.css';  // ui-css
+import './utils/vee-validate'; // 表单验证
 
 Vue.use(ElementUI);
+Vue.use(VueResource);
 
 Vue.config.productionTip = false;
 
@@ -19,3 +22,4 @@ new Vue({
   template: '<App/>',
   components: {App}
 });
+router.push('/home');

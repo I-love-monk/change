@@ -1,7 +1,5 @@
 <template>
   <div class="login">
-    <self-head></self-head>
-    <self-nav></self-nav>
     <div class="content">
       <div class="left">
         <div class="img-line1">
@@ -20,11 +18,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import selfHead from '../components/common/selfHead.vue';
-  import selfNav from '../components/common/selfNav.vue';
   import loginForm from '../components/login/loginForm.vue';
   export default {
-    components: {selfHead, selfNav, loginForm}
+    components: {loginForm}
   };
 </script>
 

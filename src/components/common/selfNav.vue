@@ -18,7 +18,7 @@
     data () {
       return {
         routerList: [
-          {to: '/', info: '首页'},
+          {to: '/home', info: '首页'},
           {to: '/mission', info: '任务发布'},
           {to: '/seller', info: '商家'},
           {to: '/brief', info: '简介'},
