@@ -5,12 +5,12 @@
                 v-validate="'required'" name="用户名">
         <span slot="left" class="left">用户名</span>
       </inp-line>
-      <inp-line placeTxt="建议至少使用两种字符组合" v-model="formData.pwd"
-                v-validate="'required'" name="密码">
+      <inp-line placeTxt="建议至少使用两种字符组合" inpType="password"
+                v-model="formData.pwd" v-validate="'required'" name="密码">
         <span slot="left" class="left">设置密码</span>
       </inp-line>
-      <inp-line placeTxt="再次输入密码" v-model="formData.pwd2"
-                v-validate="'required'" name="密码">
+      <inp-line placeTxt="再次输入密码" inpType="password"
+                v-model="formData.pwd2" v-validate="'required'" name="确认密码">
         <span slot="left" class="left">确认密码</span>
       </inp-line>
       <inp-line placeTxt="建议使用常用手机" v-model="formData.phone"
@@ -18,12 +18,12 @@
         <span slot="left" class="left">手机号码</span>
       </inp-line>
       <inp-line placeTxt="请输入验证码" v-model="formData.imgCode"
-                v-validate="'required|mobile'" name="验证码">
+                v-validate="'required'" name="验证码">
         <span slot="left" class="left">验证码</span>
-        <img slot="right" class="right" src="" alt="获取失败" @click="getImgCode">
+        <img slot="right" class="right imgCode" :src="imgCodeSrc" alt="...">
       </inp-line>
       <inp-line placeTxt="手机验证码" v-model="formData.msgCode"
-                v-validate="'required|mobile'" name="手机验证码">
+                v-validate="'required'" name="手机验证码">
         <span slot="left" class="left">手机验证码</span>
         <div slot="right" class="right" @click="getMsgCode">获取验证码</div>
       </inp-line>
@@ -49,15 +49,32 @@
         }
       };
     },
+    computed: {
+      imgCodeSrc () {
+        if (this.formData.phone && !this.errors.has('手机号')) {
+          return 'http://api.haozhaoli510.com/authCode?mobile=' + this.formData.phone;
+        } else {
+          return;
+        }
+      }
+    },
     methods: {
-      getImgCode () {
-        // TODO 获取图形验证码
-      },
       getMsgCode () {
-        // TODO 获取短信验证码
+        // 获取短信验证码
+        /* eslint-disable */
+        let data = {
+          mobile: this.formData.phone,
+          imageCode: this.formData.imgCode,
+          type: '1' // 1 注册 2 积分提现 3 金币提现
+        };
+        /* eslint-enable */
+        this.$http.post('http://192.168.1.117:8080/api/send_msg/', data)
+          .then(res => {
+            res.body;
+          }, errs => {
+          });
       },
       submit () {
-        console.log(12);
         this.checkForm() && this.ajaxRegister();
       },
       checkForm () {
@@ -104,6 +121,11 @@
         padding: 0 10px;
         border-left: 1px solid #959595;
         cursor: pointer;
+      }
+      .imgCode {
+        width: 5em;
+        padding: 0;
+        text-align: center;
       }
     }
     .submit {
