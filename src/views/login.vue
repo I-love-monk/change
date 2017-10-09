@@ -1,18 +1,16 @@
 <template>
   <div class="login">
-    <!--<self-head></self-head>-->
-    <!--<self-nav></self-nav>-->
     <div class="content">
       <div class="left">
         <div class="img-line1">
-          <img src=""><img src="">
+          <img src="" alt=""><img src="" alt="">
         </div>
         <div class="img-line2">
-          <img src=""><img src="">
+          <img src="" alt=""><img src="" alt="">
         </div>
       </div>
       <div class="right">
-        <small-title txt="账户登录"></small-title>
+        <!--<self-title txt="用户登录"></self-title>-->
         <login-form></login-form>
         <div class="register">
           <router-link class="router" to="/register">新用户注册</router-link>
@@ -23,12 +21,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import selfHead from '../components/common/selfHead.vue';
-  import selfNav from '../components/common/selfNav.vue';
-  import smallTitle from '../components/common/smallTitle.vue';
   import loginForm from '../components/login/loginForm.vue';
   export default {
-    components: {selfHead, selfNav, smallTitle, loginForm}
+    components: {loginForm}
   };
 </script>
 

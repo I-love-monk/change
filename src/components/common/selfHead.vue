@@ -23,7 +23,7 @@
   @import '../../assets/css/common.less';
 
   .selfHead {
-    position: fixed;
+    position: absolute;
     z-index: 100;
     top: 0;
     left: 50%;

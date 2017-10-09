@@ -71,5 +71,9 @@ module.exports = {
         }
       }
     ]
+  },
+  externals: {
+    // 必须在index.html通过script引入才有效（CDN或本地static）
+    'AMap': 'window.AMap'
   }
 }
