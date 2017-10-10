@@ -4,7 +4,6 @@ import Vue from 'vue';
 import App from './App';
 import './api';
 import router from './router';
-import VueResource from 'vue-resource';
 
 import './assets/css/reset.css';  // 重置样式
 import ElementUI from 'element-ui'; // 引入ui组件

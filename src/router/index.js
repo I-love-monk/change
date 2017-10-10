@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '../views/home.vue';
 import Login from '../views/login.vue';
 import Register from '../views/register.vue';
+import Mission from './mission.js';
 import Brief from '../views/brief.vue';
 
 Vue.use(Router);
@@ -20,6 +21,7 @@ let router = new Router({
       path: '/register',
       component: Register
     },
+    Mission,
     {
       path: '/brief',
       component: Brief

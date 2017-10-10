@@ -33,6 +33,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Ajax from '../../api';
   import inpLine from '../common/inpLine.vue';
 
   export default {
@@ -61,37 +62,44 @@
     methods: {
       getMsgCode () {
         // 获取短信验证码
-        /* eslint-disable */
         let data = {
           mobile: this.formData.phone,
           imageCode: this.formData.imgCode,
           type: '1' // 1 注册 2 积分提现 3 金币提现
         };
-        /* eslint-enable */
-        this.$http.post('http://192.168.1.117:8080/api/send_msg/', data)
-          .then(res => {
-            res.body;
-          }, errs => {
-          });
+        Ajax.save({api: 'send_msg'}, data).then(res => {
+          if (res.body.status === 200) {
+          } else {
+            this.$alert(res.body.msg);
+          }
+        }, errs => {
+        });
       },
       submit () {
-        this.checkForm() && this.ajaxRegister();
-      },
-      checkForm () {
         this.$validator.validateAll().then((result) => {
           if (result) {
-            return result;
+            if (this.formData.pwd === this.formData.pwd2) {
+              this.ajaxRegister();  // 表单验证成功后ajax
+            } else {
+              this.$alert('前后设置的密码不一致', '填写错误');
+            }
           } else {
-            this.$alert(this.errors.all()[0], '填写错误');
-            return result;
+            this.$alert(this.errors.all()[0], '填写错误');  // 验证失败提示
           }
         });
       },
       ajaxRegister () {
-        // TODO 注册
-        this.$http.get('/someUrl').then(res => {
-          // get body data
-          res.body;
+        let data = {
+          check_code: this.formData.msgCode,
+          mobile: this.formData.phone,
+          pwd: this.formData.pwd,
+          username: this.formData.username
+        };
+        Ajax.save({api: 'register'}, data).then(res => {
+          if (res.body.status === 200) {
+          } else {
+            this.$alert(res.body.msg);
+          }
         }, errs => {
           // error callback
         });
@@ -108,8 +116,7 @@
   }
 
   form {
-    width: 585px;
-    margin: 0 auto;
+    width: 100%;
     .inp-line {
       .left {
         box-sizing: border-box;
@@ -131,6 +138,7 @@
     .submit {
       width: 100%;
       height: 64px;
+      margin-bottom: 100px;
       text-align: center;
       background-color: @cCyan;
       cursor: pointer;

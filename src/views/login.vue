@@ -3,27 +3,25 @@
     <div class="content">
       <div class="left">
         <div class="img-line1">
-          <img src="" alt=""><img src="" alt="">
+          <img src="../assets/img/goods6.png"><img src="../assets/img/goods7.png">
         </div>
         <div class="img-line2">
-          <img src="" alt=""><img src="" alt="">
+          <img src="../assets/img/goods8.png"><img src="../assets/img/goods9.png">
         </div>
       </div>
       <div class="right">
-        <!--<self-title txt="用户登录"></self-title>-->
+        <small-title txt="账户登录" color="#fff"></small-title>
         <login-form></login-form>
-        <div class="register">
-          <router-link class="router" to="/register">新用户注册</router-link>
-        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import smallTitle from '../components/common/smallTitle.vue';
   import loginForm from '../components/login/loginForm.vue';
   export default {
-    components: {loginForm}
+    components: {smallTitle, loginForm}
   };
 </script>
 
@@ -32,12 +30,11 @@
 
   .login {
     width: 100%;
-    // background: linear-gradient(to right, @cCyan, #67eeff);
     background-color: @cCyan;
   }
 
   .content {
-    width: 1200px;
+    width: 1050px;
     padding: 30px 0;
     margin: 0 auto;
     display: flex;
@@ -45,35 +42,25 @@
   }
 
   .left {
-    width: 400px;
-  }
-
-  .right {
-    width: 400px;
-    .register {
-      width: 200px;
-      padding-top: 10px;
-      border-top: 1px solid @cWhite;
-      margin: 10px auto 0;
-      text-align: center;
-      .router {
-        color: @cWhite;
+    width: 539px;
+    height: 462px;
+    display: flex;
+    justify-content: space-between;
+    .img-line1, .img-line2 {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      img {
+        display: inline-block;
       }
     }
   }
 
-  form {
-    .username, .pwd {
-      display: block;
-    }
+  .right {
+    width: 432px;
   }
 
-  .check-box {
-    label {
-
-    }
-    input[type="checkbox"] {
-      vertical-align: middle;
-    }
+  .smallTitle {
+    margin-bottom: 40px;
   }
 </style>
