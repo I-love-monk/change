@@ -10,6 +10,10 @@ Vue.use(Router);
 let router = new Router({
   routes: [
     {
+      path: '/',
+      redirect: '/home' // 重定向初始化路由
+    },
+    {
       path: '/home',
       component: Home
     },
