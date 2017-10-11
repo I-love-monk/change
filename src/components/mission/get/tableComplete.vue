@@ -1,16 +1,11 @@
 <template>
-  <div class="index">
+  <div class="tableComplete">
     <div class="content">
-      <div class="top-line">
-        <div class="missionBtn" @click="$router.push('/mission/get')">任务认领</div>
-        <div class="date-box">
-          发布日期：
-          <el-date-picker v-model="dateSele" format="yyyy年MM月dd日"
-                          :picker-options="pickerOptions">
-          </el-date-picker>
-        </div>
-      </div>
       <div class="table-box">
+        <div class="title-line">
+          <h3>任务完成情况/<label>*会员需完成单项提交任务的数量才可兑换同等金额，如单项没有完成的需完成后才可兑换</label></h3>
+          <span>更多&gt;&gt;</span>
+        </div>
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column prop="province" label="省份" width="100">
             <template scope="scope">
@@ -36,9 +31,16 @@
           </el-table-column>
           <el-table-column prop="total" label="发布总数" width="120">
           </el-table-column>
-          <el-table-column prop="claimed" label="已认领" width="120">
+          <el-table-column prop="claimed" label="认领数量" width="120">
           </el-table-column>
-          <el-table-column prop="unclaimed" label="未认领" width="120">
+          <el-table-column prop="completed" label="完成数量" width="120">
+          </el-table-column>
+          <el-table-column prop="get" label="操作" width="120">
+            <template scope="scope">
+              <el-button @click="getCash(scope)" type="text" :disabled="scope.row.claimed !== scope.row.completed">
+                提现
+              </el-button>
+            </template>
           </el-table-column>
         </el-table>
       </div>
@@ -67,16 +69,16 @@
             area: '123',
             address: '123',
             total: '123',
-            claimed: '123',
-            unclaimed: '123'
+            claimed: '400',
+            completed: '400'
           },
           {
             city: '456',
             area: '456',
             address: '456',
             total: '456',
-            claimed: '456',
-            unclaimed: '456'
+            claimed: '900',
+            completed: '899'
           }
         ],
         provinceList: [ // 省级列表
@@ -104,49 +106,42 @@
       seleProvince (val) {
         this.provinceSele = val;
         // TODO 选择省级，刷新列表
+      },
+      getCash (scope) {
+        console.log(scope);
+        // TODO 提现
       }
     }
   };
 </script>
 
 <style scoped rel="stylesheet/less" type="text/less" lang="less">
-  @import "../../assets/css/common.less";
+  @import '../../../assets/css/common.less';
 
-  .index {
+  .tableComplete {
 
   }
 
   .content {
     width: 1200px;
-    margin: 0 auto;
-  }
-
-  .top-line {
-    margin: 100px 0;
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    .missionBtn {
-      width: 128px;
-      height: 36px;
-      border-radius: 10px;
-      background-color: @cCyan;
-      box-shadow: 4.7px 3.8px 2px 0px rgba(0, 0, 0, 0.27),
-      inset 9.7px 20.8px 2px 0px rgba(89, 193, 210, 0.39);
-      cursor: pointer;
-      text-align: center;
-      line-height: 36px;
-      font-size: 24px;
-      color: @cWhite;
-    }
-    .date-box {
-      font-size: 20px;
-      .el-date-picker {
-      }
-    }
+    margin: 0 auto 300px;
   }
 
   .table-box {
+    .title-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0;
+      h3, span {
+        display: inline-block;
+        font-size: 24px;
+        color: @cCyan;
+      }
+      label {
+        font-size: 12px;
+        color: #000;
+      }
+    }
     .el-table {
       text-align: center;
     }

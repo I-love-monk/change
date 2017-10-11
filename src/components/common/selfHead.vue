@@ -2,9 +2,14 @@
   <div class="selfHead">
     <div class="right">
       <div class="content-line">
-        <div class="txt">你好，</div>
-        <router-link class="login" to="login">请登陆</router-link>
-        <router-link class="register" to="register">免费注册</router-link>
+        <div class="noLogin" v-if="!loginFlag">
+          <div class="txt">你好，</div>
+          <router-link class="login" to="/login">请登陆</router-link>
+          <router-link class="register" to="/register">免费注册</router-link>
+        </div>
+        <div class="logined" v-else>
+          {{userInfo}}
+        </div>
         <i class="line"></i>
         <router-link to="">我的订单</router-link>
         <i class="line"></i>
@@ -16,6 +21,21 @@
 
 <script type="text/ecmascript-6">
   export default {
+    mounted () {
+      // TODO 是否登录了
+    },
+    data () {
+      return {
+        loginFlag: false,
+        userName: null,
+        level: null
+      };
+    },
+    computed: {
+      userInfo () {
+        return `${this.userName}(${this.level}级会员)`;
+      }
+    }
   };
 </script>
 
@@ -51,8 +71,15 @@
     align-items: center;
     font-size: 18px;
     color: @cLight;
-    .login, .register {
-      color: @cCyan;
+    .noLogin {
+      display: flex;
+      .login {
+        margin-right: 10px;
+        color: @cCyan;
+      }
+      .register {
+        color: @cCyan;
+      }
     }
     .line {
       display: inline-block;
