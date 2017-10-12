@@ -2,7 +2,7 @@
   <div class="selfNav">
     <img src="../../assets/img/nav-bg.png" alt="" class="bg">
     <div class="tel-line">
-      <i class="line"></i>招商热线：0000000
+      <i class="line"></i>招商热线：18928781096
     </div>
     <div class="router-line">
       <router-link class="routers" v-for="(item, index) in routerList"
@@ -52,6 +52,7 @@
     display: flex;
     align-items: center;
     font-size: 24px;
+    font-weight: bold;
     .line {
       display: inline-block;
       width: 2px;
