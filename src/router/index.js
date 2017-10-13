@@ -5,6 +5,7 @@ import Login from '../views/login.vue';
 import Register from '../views/register.vue';
 import Mission from './mission.js';
 import Brief from '../views/brief.vue';
+import Persional from './personal.js';
 
 Vue.use(Router);
 let router = new Router({
@@ -29,7 +30,8 @@ let router = new Router({
     {
       path: '/brief',
       component: Brief
-    }
+    },
+    Persional
   ]
 });
 

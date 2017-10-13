@@ -49,7 +49,6 @@
     flex: 1 1 10px;
     height: 64px;
     border: none;
-    padding-left: 5px;
     font-size: 24px;
   }
 </style>
