@@ -97,11 +97,9 @@
         };
         Ajax.save({api: 'register'}, data).then(res => {
           if (res.body.status === 200) {
-          } else {
-            this.$alert(res.body.msg);
+            this.$message({message: '注册成功', type: 'success'});
+            this.$router.push('/home');
           }
-        }, errs => {
-          // error callback
         });
       }
     }

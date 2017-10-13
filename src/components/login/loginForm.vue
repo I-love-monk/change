@@ -55,12 +55,22 @@
         };
         Ajax.save({api: 'login'}, data).then(res => {
           if (res.body.status === 200) {
-              // TODO 登录成功
-          } else {
-            this.$alert(res.body.msg);
+            this.$message({message: '登陆成功', type: 'success'});
+            this.ajaxGetInfo();
+            this.$router.push('/home');
           }
-        }, errs => {
-          // error callback
+        });
+      },
+      ajaxGetInfo () {
+        Ajax.get({api: 'show_base_info'}).then(res => {
+          let data = res.body;
+          localStorage.setItem('account', data.account);  // 账号
+          localStorage.setItem('mobile', data.mobile);  // 电话
+          localStorage.setItem('real_name', data.real_name);  // 姓名
+          localStorage.setItem('id_card', data.id_card);  // 身份证id
+          localStorage.setItem('create_time', data.create_time);  // 创建时间
+          localStorage.setItem('intergral_num', data.intergral_num);  // 积分
+          localStorage.setItem('gold_num', data.gold_num);  // 金币
         });
       }
     }
