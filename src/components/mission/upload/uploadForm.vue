@@ -55,6 +55,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Ajax from '@/api';
   import inpLine from '../../../components/common/inpLine.vue';
 
   export default {
@@ -127,9 +128,17 @@
           };
         };
       },
-      getMoreAddress (val) {
-        console.log(val);
-        // TODO 获取下级地址
+      ajaxGetProList () {
+        // 省级列表
+        Ajax.get({api: 'get_task_province'}).then(res => {
+          this.provinceList = res.body.province_list;
+        });
+      },
+      ajaxPostLocList (api, data, reback) {
+        // 市、区列表
+        Ajax.save({api: api}, data).then(res => {
+          this[reback];
+        });
       }
     }
   };

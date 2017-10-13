@@ -17,6 +17,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // import Ajax from '../../api';
   import uploadForm from '../../components/mission/upload/uploadForm.vue';
 
   export default {

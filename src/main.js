@@ -8,6 +8,7 @@ import router from './router';
 import './assets/css/reset.css';  // 重置样式
 import ElementUI from 'element-ui'; // 引入ui组件
 import 'element-ui/lib/theme-default/index.css';  // ui-css
+import './assets/css/resetUI.less'; // 定制ui样式
 import './utils/vee-validate'; // 表单验证
 
 Vue.use(ElementUI);

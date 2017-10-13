@@ -14,15 +14,16 @@
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column prop="province" label="省份" width="100">
             <template scope="scope">
-              <el-dropdown v-if="scope.$index === 0" @command="seleProvince">
+              <el-dropdown v-if="scope.$index === 0" trigger="click"
+                           @command="seleProvince">
                 <span class="el-dropdown-link">
                   {{provinceSele}}
                   <i class="el-icon-caret-bottom el-icon--right"></i>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item v-for="(item, index) in provinceList"
-                                    :command="item.name" :key="index">
-                    {{item.name}}
+                                    :command="item" :key="index">
+                    {{item}}
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -47,10 +48,12 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Ajax from '@/api';
+
   export default {
-    updated () {
-      // updated必须
-      this.resetStyle();  // 定制ui样式
+    mounted () {
+      this.ajaxGetProList();  // 初始化省级列表
+      this.ajaxPostTasks(); // 初始化当前省数据
     },
     data () {
       return {
@@ -63,47 +66,48 @@
         provinceSele: '广东省',  // 选择的省
         tableData: [
           {
-            city: '123',
-            area: '123',
-            address: '123',
-            total: '123',
-            claimed: '123',
-            unclaimed: '123'
-          },
-          {
-            city: '456',
-            area: '456',
-            address: '456',
-            total: '456',
-            claimed: '456',
-            unclaimed: '456'
+            city: '暂无',
+            area: '暂无',
+            address: '暂无',
+            total: '暂无',
+            claimed: '暂无',
+            unclaimed: '暂无'
           }
         ],
-        provinceList: [ // 省级列表
-          {name: '广东省'},
-          {name: '湖北省'},
-          {name: '江苏省'}
-        ]
+        provinceList: []  // 省级列表
       };
     },
     methods: {
-      resetStyle () {
-        let header = document.querySelector('.el-table__header-wrapper');
-        let headerTh = document.querySelectorAll('.el-table__header th');
-        let headerCell = document.querySelectorAll('.el-table__header-wrapper th .cell');
-        header.style.fontSize = '20px';
-        header.style.color = '#fff';
-        headerTh.forEach(item => {
-          item.style.backgroundColor = '#59C1D2';
-        });
-        headerCell.forEach(item => {
-          item.style.backgroundColor = '#59C1D2';
-          item.style.textAlign = 'center';
-        });
-      },
       seleProvince (val) {
         this.provinceSele = val;
-        // TODO 选择省级，刷新列表
+        this.ajaxPostTasks();
+      },
+      ajaxGetProList () {
+        // 省级列表
+        Ajax.get({api: 'get_task_province'}).then(res => {
+          this.provinceList = res.body.province_list;
+        });
+      },
+      ajaxPostTasks () {
+        let data = {province: this.provinceSele};
+        Ajax.save({api: 'show_tasks'}, data).then(res => {
+          let data = res.body.list;
+          this.tableData = [{}];  // 清空
+          data.forEach((val, index) => {
+            console.log(val);
+            let addressList = val.fields.address.split('-');
+            if (!this.tableData[index]) this.tableData.push({});
+            [this.tableData[index].city,
+              this.tableData[index].area,
+              this.tableData[index].address] = [
+              addressList[1],
+              addressList[2],
+              addressList[3]];
+            this.tableData[index].total = val.fields.total_task_num;
+            this.tableData[index].claimed = val.fields.total_task_num - val.fields.avali_task_num;
+            this.tableData[index].unclaimed = val.fields.avali_task_num;
+          });
+        });
       }
     }
   };

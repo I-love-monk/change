@@ -16,8 +16,8 @@
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item v-for="(item, index) in provinceList"
-                                    :command="item.name" :key="index">
-                    {{item.name}}
+                                    :command="item" :key="index">
+                    {{item}}
                   </el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
@@ -37,7 +37,9 @@
           </el-table-column>
           <el-table-column prop="get" label="操作" width="120">
             <template scope="scope">
-              <el-button @click="getCash(scope)" type="text" :disabled="scope.row.claimed !== scope.row.completed">
+              <el-button v-if="scope.row.city" type="text"
+                         @click="getCash(scope)"
+                         :disabled="scope.row.claimed !== scope.row.completed">
                 提现
               </el-button>
             </template>
@@ -50,10 +52,6 @@
 
 <script type="text/ecmascript-6">
   export default {
-    updated () {
-      // updated必须
-      this.resetStyle();  // 定制ui样式
-    },
     data () {
       return {
         pickerOptions: {
@@ -71,38 +69,12 @@
             total: '123',
             claimed: '400',
             completed: '400'
-          },
-          {
-            city: '456',
-            area: '456',
-            address: '456',
-            total: '456',
-            claimed: '900',
-            completed: '899'
           }
         ],
-        provinceList: [ // 省级列表
-          {name: '广东省'},
-          {name: '湖北省'},
-          {name: '江苏省'}
-        ]
+        provinceList: []  // 省级列表
       };
     },
     methods: {
-      resetStyle () {
-        let header = document.querySelector('.el-table__header-wrapper');
-        let headerTh = document.querySelectorAll('.el-table__header th');
-        let headerCell = document.querySelectorAll('.el-table__header-wrapper th .cell');
-        header.style.fontSize = '20px';
-        header.style.color = '#fff';
-        headerTh.forEach(item => {
-          item.style.backgroundColor = '#59C1D2';
-        });
-        headerCell.forEach(item => {
-          item.style.backgroundColor = '#59C1D2';
-          item.style.textAlign = 'center';
-        });
-      },
       seleProvince (val) {
         this.provinceSele = val;
         // TODO 选择省级，刷新列表

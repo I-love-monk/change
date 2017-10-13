@@ -28,6 +28,7 @@
 
 <script type="text/ecmascript-6">
   import Ajax from '../../api';
+  import Bus from '../../utils/bus.js';
 
   export default {
     data () {
@@ -63,7 +64,7 @@
       },
       ajaxGetInfo () {
         Ajax.get({api: 'show_base_info'}).then(res => {
-          let data = res.body;
+          let data = res.body.info_msg;
           localStorage.setItem('account', data.account);  // 账号
           localStorage.setItem('mobile', data.mobile);  // 电话
           localStorage.setItem('real_name', data.real_name);  // 姓名
@@ -71,6 +72,7 @@
           localStorage.setItem('create_time', data.create_time);  // 创建时间
           localStorage.setItem('intergral_num', data.intergral_num);  // 积分
           localStorage.setItem('gold_num', data.gold_num);  // 金币
+          Bus.$emit('logined');
         });
       }
     }

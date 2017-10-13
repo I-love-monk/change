@@ -2,7 +2,7 @@
   <div class="selfHead">
     <div class="right">
       <div class="content-line">
-        <div class="noLogin" v-if="!loginFlag">
+        <div class="noLogin" v-if="!(account || userName)">
           <div class="txt">你好，</div>
           <router-link class="login" to="/login">请登陆</router-link>
           <router-link class="register" to="/register">免费注册</router-link>
@@ -20,20 +20,25 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Bus from '../../utils/bus.js';
   export default {
-    mounted () {
-      // TODO 是否登录了
+    created () {
+      this.account = localStorage.getItem('account');
+      this.userName = localStorage.getItem('userName');
+      Bus.$on('logined', () => {
+        this.account = localStorage.getItem('account');
+        this.userName = localStorage.getItem('userName');
+      });
     },
     data () {
       return {
-        loginFlag: false,
-        userName: null,
-        level: null
+        account: null,
+        userName: null
       };
     },
     computed: {
       userInfo () {
-        return `${this.userName}(${this.level}级会员)`;
+        return `${this.userName || this.account}`;
       }
     }
   };
