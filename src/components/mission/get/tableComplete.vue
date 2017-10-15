@@ -51,7 +51,13 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import Ajax from '@/api';
+
   export default {
+    mounted () {
+      this.ajaxGetProList();  // 初始化省级列表
+      this.ajaxPersonTasks(); // 初始化当前省个人完成情况
+    },
     data () {
       return {
         pickerOptions: {
@@ -63,25 +69,60 @@
         provinceSele: '广东省',  // 选择的省
         tableData: [
           {
-            city: '123',
-            area: '123',
-            address: '123',
-            total: '123',
-            claimed: '400',
-            completed: '400'
+            city: '暂无',
+            area: '暂无',
+            address: '暂无',
+            total: '暂无',  // 总数
+            claimed: '暂无',  // 认领
+            completed: '暂无' // 完成数
+            // pk: 0 // 任务ID
           }
         ],
         provinceList: []  // 省级列表
       };
     },
     methods: {
-      seleProvince (val) {
-        this.provinceSele = val;
-        // TODO 选择省级，刷新列表
-      },
-      getCash (scope) {
-        console.log(scope);
-        // TODO 提现
+      methods: {
+        seleProvince (val) {
+          // 选择省级，刷新列表
+          this.provinceSele = val;
+          this.ajaxPostTasks();
+        },
+        getCash (scope) {
+          // 提现
+          // TODO this.ajaxCash();
+        },
+        ajaxGetProList () {
+          // 省级列表
+          Ajax.get({api: 'get_task_province'}).then(res => {
+            this.provinceList = res.body.province_list;
+          });
+        },
+        ajaxPersonTasks () {
+          // 获取当前省个人完成情况
+          let data = {province: this.provinceSele};
+          Ajax.save({api: 'show_tasks'}, data).then(res => {
+            let data = res.body.list;
+            this.tableData = [{}];  // 清空
+            data.forEach((val, index) => {
+              let addressList = val.fields.address.split('-');
+              if (!this.tableData[index]) this.tableData.push({});
+              [this.tableData[index].city,
+                this.tableData[index].area,
+                this.tableData[index].address] = [
+                addressList[1],
+                addressList[2],
+                addressList[3]];
+              // TODO this.tableData[index].total = val.fields.total_task_num;
+              this.tableData[index].claimed = val.fields.get_task_num;
+              this.tableData[index].completed = val.fields.solve_task_num;
+              // TODO this.tableData[index].pk = val.pk;
+            });
+          });
+        },
+        ajaxCash (province, id, amount) {
+          // 获取任务
+        }
       }
     }
   };
